@@ -78,3 +78,42 @@ function binarySearch(arr, val){
 }
 
 console.log(binarySearch([1,2,3,4,5],1));
+
+function minSortedArr(arr){
+    //find min val in a sorted that has bennn rotated x times
+    var start = 0;
+    var end = arr.length-1;
+    var midpt = Math.floor(arr.length/2);
+    var count = 0;
+    if(arr[start] < arr[end] && arr[start] < arr[start+1]){
+        return arr[start];
+    }
+    //loop
+    while (end-start>1){
+        // console.log("start: ", start);
+        // console.log("end: ", end);
+        // console.log("mdpt: ", midpt);
+        if(arr[start]>arr[midpt]){
+            if(arr[midpt]<arr[midpt-1]){
+                return arr[midpt];
+            }
+            end = midpt -1;
+            midpt = Math.floor((start + end)/2);
+        }
+        else{
+            start = midpt;
+            midpt = Math.floor((start + end)/2);
+        }
+        // if(count > 100){
+        //     console.log("Broke out threshhold");
+        //     return;
+        // }
+    }
+    return arr[arr.length-1];
+}
+// test cases below:
+// console.log(minSortedArr(["Gigli","Jay is cool","Mavis","Phoebe","Thurber","Anna","Celeste","Elon"]));
+// console.log(minSortedArr(["Celeste","Elon","Gigli","Jay is cool","Mavis","Phoebe","Thurber","Anna"]));
+// console.log(minSortedArr(["Anna","Celeste","Elon","Gigli","Jay is cool","Mavis","Phoebe","Thurber"]));
+// console.log(minSortedArr(["Thurber","Anna","Celeste","Elon","Gigli","Jay is cool","Mavis","Phoebe"]));
+// console.log(minSortedArr(["Elon","Gigli","Jay is cool","Mavis","Phoebe","Thurber","Anna","Celeste"]));
