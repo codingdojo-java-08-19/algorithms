@@ -117,3 +117,47 @@ function minSortedArr(arr){
 // console.log(minSortedArr(["Anna","Celeste","Elon","Gigli","Jay is cool","Mavis","Phoebe","Thurber"]));
 // console.log(minSortedArr(["Thurber","Anna","Celeste","Elon","Gigli","Jay is cool","Mavis","Phoebe"]));
 // console.log(minSortedArr(["Elon","Gigli","Jay is cool","Mavis","Phoebe","Thurber","Anna","Celeste"]));
+
+function flatten(arr){
+    //Loop through the array, then find the nested elements?
+    newArr=[];
+    for (var i=0; i<arr.length; i++){
+        if (Array.isArray(arr[i])){
+            for (var j=0; j<arr[i].length;j++){
+                newArr.push(arr[i][j]);
+            }
+        }
+        else{
+            newArr.push(arr[i]);
+        }
+    }
+    return newArr;
+}
+
+console.log(flatten([1,[2,3],4,[]]));
+
+function inPlaceFlatten(arr){
+    //Loop through the array, then find the nested elements?
+    for (var i=0; i<arr.length; i++){
+        var element=arr[i];
+        if (Array.isArray(element)){
+            if (element.length){
+                arr[i]=element.pop();
+                while (element.length>0){
+                    arr.push(element.pop());
+                }
+            }
+            else {
+                for (var j=i; j<arr.length-1;j++){
+                    arr[j]=arr[j+1];
+                }
+                arr.pop();
+            }
+            //arr[i]=a;
+            //first assign last element of innerarray in place of array, then push the rest of the elements onto the end of the array
+        }
+    }
+    return arr;
+}
+
+console.log(inPlaceFlatten([1,[2,3],4,[]]));
