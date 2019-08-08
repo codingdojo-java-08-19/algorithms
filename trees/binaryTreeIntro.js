@@ -4,6 +4,7 @@ class Node {
     this.left = null;
     this.right = null;
   }
+
   size() {
     let counter = 1;
     if (this.left != null) {
@@ -15,6 +16,35 @@ class Node {
       console.log("right if triggered", counter);
     }
     return counter;
+  }
+
+  contains(value) {
+    if (this.value === value) {
+      return true;
+    }
+    if (this.value > value && this.left != null) {
+      return this.left.contains(value);
+    }
+    if (this.value < value && this.right != null) {
+      return this.right.contains(value);
+    }
+    return false;
+  }
+
+  height() {
+    let left = 0;
+    let right = 0;
+    if (this.left != null) {
+      left += this.left.height();
+    }
+    if (this.right != null) {
+      right += this.right.height();
+    }
+    if (left > right) {
+      return left + 1;
+    } else {
+      return right + 1;
+    }
   }
 
   add(newNode) {
@@ -107,12 +137,32 @@ class Tree {
       this.root = newNode;
     }
   }
+  isEmpty() {
+    if (this.root == null) {
+      return true;
+    }
+    return false;
+  }
+
   size() {
     if (this.root != null) {
       return this.root.size();
     } else {
       return 0;
     }
+  }
+  contains(value) {
+    if (this.root != null) {
+      return this.root.contains(value);
+    } else {
+      return false;
+    }
+  }
+  height() {
+    if (this.root != null) {
+      return this.root.height();
+    }
+    return 0;
   }
 }
 
@@ -128,8 +178,17 @@ tree.add2(8);
 tree.add2(7);
 
 tree.add2(9);
+tree.add2(6);
+tree.add2(5);
+tree.add2(50);
+tree.add2(60);
+tree.add2(70);
+tree.add2(80);
+tree.add2(90);
 
 // console.log('here is the tree', tree)
 // console.log('here is the tree', tree2)
-console.log("here is the min", tree.max());
+console.log("here is the min", tree.contains(12));
 console.log("this is the size of our tree", tree.size());
+console.log("Is it empty?", tree.isEmpty(), tree2.isEmpty());
+console.log("here is the height", tree.height());
