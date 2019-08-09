@@ -77,7 +77,7 @@ function binarySearch(arr, val){
     return false;
 }
 
-console.log(binarySearch([1,2,3,4,5],1));
+// console.log(binarySearch([1,2,3,4,5],1));
 
 function minSortedArr(arr){
     //find min val in a sorted that has bennn rotated x times
@@ -134,7 +134,7 @@ function flatten(arr){
     return newArr;
 }
 
-console.log(flatten([1,[2,3],4,[]]));
+// console.log(flatten([1,[2,3],4,[]]));
 
 function inPlaceFlatten(arr){
     //Loop through the array, then find the nested elements?
@@ -160,4 +160,69 @@ function inPlaceFlatten(arr){
     return arr;
 }
 
-console.log(inPlaceFlatten([1,[2,3],4,[]]));
+// console.log(inPlaceFlatten([1,[2,3],4,[]]));
+
+function removeDuplicates(arr){
+    var newarr=[];
+    var duparr={};
+    var count=0;
+    for(var i=0;i<arr.length;i++){
+        var key = arr[i];
+        String(key);
+        console.log(key);
+        if(!(key in duparr)){
+            duparr[count] = arr[i];
+            count++
+            newarr.push(arr[i]);            
+        }
+    }
+    console.log(duparr);
+    return newarr;
+}
+
+// console.log(removeDuplicates([1,2,1,3,4,2]));
+
+function removeDuplicatesIP(arr){
+    var increment=0;
+    var duparr=[];
+    for(var i=0; i<arr.length;i++){
+
+        if(arr[i] in duparr){
+            for(var j=i;j<arr.length-1;j++){
+                var swap=arr[j];
+                arr[j]=arr[j+1];
+                arr[j+1]=swap;
+            }
+            arr.pop();
+            i--;
+        }
+        else{
+            duparr[increment]=arr[i];
+            increment++;
+        }
+        console.log(arr);
+    }
+    return arr;
+}
+
+console.log(removeDuplicatesIP([1,2,2,2,2,3,4,2]));
+
+function removeDuplicatesIP2(arr){
+    var increment=0;
+    for(var i=0; i<arr.length;i++){        
+        for(var j=0;j<i;j++){
+            if(arr[j]==arr[i]){
+                increment++;
+                break;
+            }
+        }
+        if(j<i){
+            var swap = arr[i];
+            arr[i] = arr[arr.length-1];
+            arr[arr.length-1]=swap;
+            arr.pop();
+            console.log("i: "+i+"j: "+j);
+        }
+    }
+    return arr;
+}
