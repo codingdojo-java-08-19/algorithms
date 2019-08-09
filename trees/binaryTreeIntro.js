@@ -47,6 +47,32 @@ class Node {
     }
   }
 
+  isbalanced() {
+    let left = 0;
+    let right = 0;
+    if (this.left != null) {
+      left += this.left.height();
+    }
+    if (this.right != null) {
+      right += this.right.height();
+    }
+    console.log("This is Left", left);
+    console.log("This is Right", right);
+    let difference = Math.max(left, right) - Math.min(left, right);
+    if (difference > 1) {
+      return false;
+    }
+    let leftside = true;
+    let rightside = true;
+    if (this.left != null) {
+      leftside = this.left.isbalanced();
+    }
+    if (this.right != null) {
+      rightside = this.right.isbalanced();
+    }
+    return leftside && rightside;
+  }
+
   add(newNode) {
     if (newNode.value < this.value) {
       if (this.left === null) {
@@ -164,6 +190,13 @@ class Tree {
     }
     return 0;
   }
+  isbalanced() {
+    if (this.root != null) {
+      return this.root.isbalanced();
+    } else {
+      return true;
+    }
+  }
 }
 
 const tree = new Tree();
@@ -178,13 +211,8 @@ tree.add2(8);
 tree.add2(7);
 
 tree.add2(9);
-tree.add2(6);
-tree.add2(5);
-tree.add2(50);
-tree.add2(60);
-tree.add2(70);
-tree.add2(80);
-tree.add2(90);
+// tree.add2(6);
+// tree.add2(5);
 
 // console.log('here is the tree', tree)
 // console.log('here is the tree', tree2)
@@ -192,3 +220,4 @@ console.log("here is the min", tree.contains(12));
 console.log("this is the size of our tree", tree.size());
 console.log("Is it empty?", tree.isEmpty(), tree2.isEmpty());
 console.log("here is the height", tree.height());
+console.log("Is it balanced?", tree.isbalanced());
