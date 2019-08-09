@@ -221,7 +221,7 @@ function removeDuplicatesIP2(arr){
             arr[i] = arr[arr.length-1];
             arr[arr.length-1]=swap;
             arr.pop();
-            i--
+            i--;
             console.log("i: "+i+"j: "+j);
         }
     }
