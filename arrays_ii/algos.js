@@ -205,7 +205,7 @@ function removeDuplicatesIP(arr){
     return arr;
 }
 
-console.log(removeDuplicatesIP([1,2,2,2,2,3,4,2]));
+// console.log(removeDuplicatesIP([1,2,2,2,2,3,4,2]));
 
 function removeDuplicatesIP2(arr){
     var increment=0;
@@ -221,8 +221,11 @@ function removeDuplicatesIP2(arr){
             arr[i] = arr[arr.length-1];
             arr[arr.length-1]=swap;
             arr.pop();
+            i--
             console.log("i: "+i+"j: "+j);
         }
     }
     return arr;
 }
+
+console.log(removeDuplicatesIP2([1,2,2,2,2,3,4,2]));
