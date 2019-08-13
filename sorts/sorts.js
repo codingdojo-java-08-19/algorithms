@@ -42,9 +42,26 @@ function optBubbleSort(array) {
 }
 
 function selectionSort(array) {
-    let sortedIndex = 0;
+    //let sortedIndex = 0;
     let sorted = false;
-    
+    let minPosition = 0;
+    let temp = 0;
+    for (var j = 0; j < array.length; j++){
+      minPosition = j;
+      console.log('4-1', j)
+        for (var i = j; i < array.length; i++){
+          console.log('4-2', i)
+            if (array[minPosition] > array[i]){
+                minPosition = i;
+            }
+        }
+        temp = array[j];
+      console.log('This is j', j)
+        array[j] = array [minPosition];
+        array[minPosition] = temp; 
+    }
+    return array;
 }
+console.log('here is the sorted array', selectionSort([5,3,4,0,1,2]))
 
 console.log('here is the sorted array', optBubbleSort([5,3,4,]))
