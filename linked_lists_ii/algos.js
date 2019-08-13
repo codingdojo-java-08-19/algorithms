@@ -111,13 +111,70 @@ function SLlist() {
         console.log("------");
     }
 
+    this.kthLastNode = function (k){
+        var length = 0;
+        runner=this.head;
+        while(runner!=null){
+            length++;
+            runner=runner.next;
+        }
+        length-=k;
+        if(length<1){
+            return null;
+        }
+        runner=this.head;
+        for (var i =0;i<length;i++){
+            runner=runner.next;
+        }
+        return runner.value;
+    }
+
+    this.kthLastNode2 = function (k){
+        var knode = this.head;
+        var runner = this.head;
+        for(var i = 1;i<k;i++){
+            if(runner==null){
+                return null;
+            }
+            runner=runner.next;
+        }
+        while(runner.next!=null){
+            knode=knode.next;
+            runner=runner.next;
+        }
+        return knode.value;
+    }
+
+    this.isPalindrome = function (){
+        var length = 0;
+        var half = [];
+        runner=this.head;
+        while(runner!=null){
+            length ++;            
+            runner=runner.next;
+        }
+        var halflen = Math.floor(length/=2);
+        runner = this.head;
+        for(var i =0; i<halflen; i++){
+            half.push(runner.value);            
+            runner=runner.next;
+        }
+        runner=runner.next;
+        if(length%2==1){
+            runner=runner.next;
+        }
+        while(runner.next!=null){
+            console.log(runner.value);
+            if(half.pop() != runner.value){
+                return false;
+            }
+            runner=runner.next;
+        }
+        return true;
+    }
 }
 
 var ourSLlist = new SLlist();
-ourSLlist.pushFront(1);
-ourSLlist.pushBack(2);
-ourSLlist.pushBack(3);
-
+"".split("").forEach(value => ourSLlist.pushFront(value));
 ourSLlist.display();
-ourSLlist.reverse();
-ourSLlist.display();
+console.log(ourSLlist.isPalindrome());
