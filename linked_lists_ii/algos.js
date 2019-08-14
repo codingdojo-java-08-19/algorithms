@@ -111,70 +111,124 @@ function SLlist() {
         console.log("------");
     }
 
-    this.kthLastNode = function (k){
+    this.kthLastNode = function (k) {
         var length = 0;
-        runner=this.head;
-        while(runner!=null){
+        runner = this.head;
+        while (runner != null) {
             length++;
-            runner=runner.next;
+            runner = runner.next;
         }
-        length-=k;
-        if(length<1){
+        length -= k;
+        if (length < 1) {
             return null;
         }
-        runner=this.head;
-        for (var i =0;i<length;i++){
-            runner=runner.next;
+        runner = this.head;
+        for (var i = 0; i < length; i++) {
+            runner = runner.next;
         }
         return runner.value;
     }
 
-    this.kthLastNode2 = function (k){
+    this.kthLastNode2 = function (k) {
         var knode = this.head;
         var runner = this.head;
-        for(var i = 1;i<k;i++){
-            if(runner==null){
+        for (var i = 1; i < k; i++) {
+            if (runner == null) {
                 return null;
             }
-            runner=runner.next;
+            runner = runner.next;
         }
-        while(runner.next!=null){
-            knode=knode.next;
-            runner=runner.next;
+        while (runner.next != null) {
+            knode = knode.next;
+            runner = runner.next;
         }
         return knode.value;
     }
+    this.kthLastNodePTR = function (k) {
+        var knode = this.head;
+        var toReturn = [];
+        var runner = this.head;
 
-    this.isPalindrome = function (){
+        for (var i = 1; i < k; i++) {
+            if (runner == null) {
+                return null;
+            }
+            runner = runner.next;
+        }
+        while (runner.next != null) {
+            knode = knode.next;
+            runner = runner.next;
+        }
+        toReturn.push(knode);
+        toReturn.push(runner);//runner is at the last node.
+        return toReturn;
+    }
+
+    this.isPalindrome = function () {
         var length = 0;
         var half = [];
-        runner=this.head;
-        while(runner!=null){
-            length ++;            
-            runner=runner.next;
-        }
-        var halflen = Math.floor(length/=2);
         runner = this.head;
-        for(var i =0; i<halflen; i++){
-            half.push(runner.value);            
-            runner=runner.next;
+        while (runner != null) {
+            length++;
+            runner = runner.next;
         }
-        runner=runner.next;
-        if(length%2==1){
-            runner=runner.next;
+        var halflen = Math.floor(length /= 2);
+        runner = this.head;
+        for (var i = 0; i < halflen; i++) {
+            half.push(runner.value);
+            runner = runner.next;
         }
-        while(runner.next!=null){
+        runner = runner.next;
+        if (length % 2 == 1) {
+            runner = runner.next;
+        }
+        while (runner.next != null) {
             console.log(runner.value);
-            if(half.pop() != runner.value){
+            if (half.pop() != runner.value) {
                 return false;
             }
-            runner=runner.next;
+            runner = runner.next;
         }
         return true;
+    }
+    this.isPalindrome2 = function () {
+        runner = this.head;
+        var count = 1;
+        while (runner.next != null) {
+            if (runner.value != this.kthLastNode2(count)) {
+                return false;
+            }
+            count++;
+            runner = runner.next;
+        }
+        return true;
+    }
+    this.shiftRight = function (shift) {
+        runner = this.head;
+        var length = 0;
+
+        while (runner != null) {
+            length++;
+            runner = runner.next;
+        }
+        shift %= length;
+        if (shift == 0) {
+            return;
+        }
+        var list = this.kthLastNodePTR(shift);
+        list[1].next = this.head;//stores info of lastnode's next now pointing to head
+        this.head = list[0];
+        runner = this.head;
+        while (runner.next != this.head) {
+            runner = runner.next;
+        }
+        runner.next = null;
+        //kthlastnode -> new loop that goes to last node -> lastnode.next = this.head ->this.head = kthlastnode
     }
 }
 
 var ourSLlist = new SLlist();
-"".split("").forEach(value => ourSLlist.pushFront(value));
+"12345".split("").forEach(value => ourSLlist.pushBack(value));
 ourSLlist.display();
-console.log(ourSLlist.isPalindrome());
+ourSLlist.shiftRight(6);
+ourSLlist.display();
