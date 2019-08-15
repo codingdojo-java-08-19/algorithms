@@ -103,10 +103,12 @@ function SLlist() {
 
     }
     this.display = function () {
+        var count = 0;
         var runner = this.head;
-        while (runner != null) {
+        while (runner != null && count < 25) {
             console.log(runner.value);
             runner = runner.next;
+            count++;
         }
         console.log("------");
     }
@@ -225,10 +227,93 @@ function SLlist() {
         runner.next = null;
         //kthlastnode -> new loop that goes to last node -> lastnode.next = this.head ->this.head = kthlastnode
     }
+    this.setUpLoop = function (numOfNodes, start) {
+        var count = 1;
+        var startNode;
+        runner = this.head;
+        while (runner.next != null) {
+            if (count == start) {
+                startNode = runner;
+            }
+            runner = runner.next;
+            count++;
+        }
+        runner.next = startNode;
+        return this;
+    }
+    this.hasLoop = function () {
+        var list = [];
+        // var count = 0;
+        runner = this.head;
+        while (runner != null) {
+            for (var i = 0; i < list.length; i++) {
+                // if (count > 25) {
+                //     return "Loop broken :(";
+                // }
+                // console.log("inside loop")
+                // console.log(list[i] + "--------");
+                // console.log(runner);
+                if (list[i] === runner) {
+                    return true;
+                }
+                // count++;
+            }
+            list.push(runner);
+            runner = runner.next;
+        }
+        return false;
+    }
+    this.breakLoop = function () {
+        var list = [];
+        // var count = 0;
+        runner = this.head;
+        while (runner != null) {
+            for (var i = 0; i < list.length; i++) {
+                // if (count > 25) {
+                //     return "Loop broken :(";
+                // }
+                // console.log("inside loop")
+                // console.log(list[i] + "--------");
+                // console.log(runner);
+                if (list[i] === runner.next) {
+                    runner.next = null;
+                    return;
+                }
+                // count++;
+            }
+            list.push(runner);
+            runner = runner.next;
+        }
+        return;
+    }
+    this.loopStart = function () {
+        var list = [];
+        // var count = 0;
+        runner = this.head;
+        while (runner != null) {
+            for (var i = 0; i < list.length; i++) {
+                // if (count > 25) {
+                //     return "Loop broken :(";
+                // }
+                // console.log("inside loop")
+                // console.log(list[i] + "--------");
+                // console.log(runner);
+                if (list[i] === runner.next) {
+                    return runner.next;
+                }
+                // count++;
+            }
+            list.push(runner);
+            runner = runner.next;
+        }
+        return null;
+    }
 }
 
 var ourSLlist = new SLlist();
 "12345".split("").forEach(value => ourSLlist.pushBack(value));
 ourSLlist.display();
-ourSLlist.shiftRight(6);
-ourSLlist.display();
+// ourSLlist.setUpLoop(5, 3);
+// ourSLlist.display();
+console.log(ourSLlist.loopStart());
+
