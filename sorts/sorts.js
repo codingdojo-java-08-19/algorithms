@@ -80,5 +80,61 @@ function insertionSort(array) {
   //compare to each index in the sorted section
   // Based off comparison place value at sorted index
 }
+
+
+
 const list = [5, 7, 3, 4, 10, 20, 100, -50];
 console.log(insertionSort(list));
+
+
+//[1,2,3,4,5] [1,2,3,6,6,7]*
+//[1,1*,2,2*,3,3*,4,5,6*,6*,7*]
+
+function merge(array, array2) {
+  let multiSet = [];
+  let i = 0;
+  let j = 0; 
+  while (i<array.length && j<array2.length) {
+    if (array[i] == array2[j]) {
+      multiSet.push(array[i]);
+      multiSet.push(array2[j]);
+      i++;
+      j++;
+    }
+    if (array[i] < array2[j]) {
+      multiSet.push(array[i]);
+      i++      
+    } else{
+      multiSet.push(array2[j]);
+      j++;
+      
+    }
+    //whoever is longer becomes focus
+   //compare them 
+   //push min to front 
+  }
+  while (i < array.length) {
+    multiSet.push(array[i++]);
+  }
+  while (j < array2.length) {
+    multiSet.push(array[j++]);
+  }
+  return multiSet
+}
+
+function mergeSort(array) {
+
+  //base case
+  if (array.length <= 1) {
+    return array
+  }
+  let first = array.slice(0, Math.floor(array.length / 2));
+  let second = array.slice(Math.floor(array.length / 2),array.length);
+  let result1 = mergeSort(first);
+  let result2 = mergeSort(second);
+  console.log("this is result1", result1);
+  console.log("this is result2", result2);
+  return merge(result1, result2);
+}
+
+console.log("this is the result of merge",merge([1,2,4,5],[1,2,3,4]));
