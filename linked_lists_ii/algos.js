@@ -308,6 +308,66 @@ function SLlist() {
         }
         return null;
     }
+
+    this.numberOfNodes = function(){
+        this.breakLoop();
+        var count = 0;
+        var runner = this.head;
+        while(runner!=null){
+            count++;
+            runner=runner.next;
+        }
+        return count;
+    }
+
+    this.swapPairs = function(){
+        var node1 = this.head;
+        var node2 = this.head.next;
+        var node3 = this.head.next.next;
+        this.head = node2;
+        var count = 0;
+        while(true){
+            // WHAT POINTS TO 444444!!!!
+            node2.next = node1; // 4 will point to 3
+            node1.next = node3; // 3 will point to 5
+            node1=node3; // 3
+            node2=node3.next; //4
+            node3=node3.next.next; //5
+            count++;
+            console.log(count);   
+            if(node1 || node1.next){
+                return;
+            }
+            
+        }
+
+
+        // while(runner.next){
+        //     // if(count%2==0){
+                
+        //         var temp = runner.next; // stores 2
+        //         runner.next = temp.next; // switches 1 to 3
+        //         temp.next = runner; // links 2 to 1
+        //         runner = temp; // now at 2 (2,1,3)
+        //         console.log(runner.next);
+        //         if(count==0){ // links head in first case scenario
+        //             this.head = temp;
+        //         }
+        //         else{
+                    
+        //             prev.next = runner.next.next; // node 1 now second node
+        //         }
+        //         runner = runner.next.next; // moves to nodes 3 
+        //     // }
+        //     count++;
+        //     // runner=runner.next;
+        //     if(count>6){
+        //         return runner, temp;
+        //     }
+        // }
+    }
+
+
 }
 
 var ourSLlist = new SLlist();
@@ -315,5 +375,7 @@ var ourSLlist = new SLlist();
 ourSLlist.display();
 // ourSLlist.setUpLoop(5, 3);
 // ourSLlist.display();
-console.log(ourSLlist.loopStart());
+// console.log(ourSLlist.numberOfNodes());
+console.log(ourSLlist.swapPairs());
+ourSLlist.display();
 
