@@ -321,24 +321,41 @@ function SLlist() {
     }
 
     this.swapPairs = function(){
+        var prev;
         var node1 = this.head;
         var node2 = this.head.next;
         var node3 = this.head.next.next;
         this.head = node2;
         var count = 0;
         while(true){
+            // 1,2,3,4,5
+            // 2,1,3,4,5
             // WHAT POINTS TO 444444!!!!
+            
             node2.next = node1; // 4 will point to 3
-            node1.next = node3; // 3 will point to 5
+            if(node3.next == null){
+                node1.next = node3;
+            }
+            else{
+                node1.next = node3.next; // 3 will point to 5
+            }
             node1=node3; // 3
-            node2=node3.next; //4
-            node3=node3.next.next; //5
-            count++;
-            console.log(count);   
-            if(node1 || node1.next){
+            if(node1 == null || node1.next == null){
                 return;
             }
-            
+            prev = node1;
+            node2=node1.next; //4
+            console.log(node2);
+            node3=node1.next.next; //5
+            console.log(node3);
+            count++;
+            console.log(count);
+            if(node3 == null){
+                prev.next = node1;
+                node2.next = node1;
+                node1.next = null;
+                return;
+            }
         }
 
 
@@ -376,6 +393,6 @@ ourSLlist.display();
 // ourSLlist.setUpLoop(5, 3);
 // ourSLlist.display();
 // console.log(ourSLlist.numberOfNodes());
-console.log(ourSLlist.swapPairs());
+ourSLlist.swapPairs();
 ourSLlist.display();
 
