@@ -92,6 +92,7 @@ console.log(insertionSort(list));
 
 
 function merge2point0(array, array2) {
+  const superLength = array.length + array2.length;
   let focus = [];
   let multiSet = [];
   let small = [];
@@ -104,16 +105,26 @@ function merge2point0(array, array2) {
     small = array;
   }
 
-  for (let i = 0; i < focus.length; i++){
-    if (i > small.length) {
+  for (let i = 0; i < superLength; i++){
+    
+    if (i > small.length-1) {
+      multiSet.push(focus[i-1]);
+      console.log("first if", multiSet,i);
+    }
+    if (i > focus.length - 1) {
+      console.log("fifth if", multiSet,i);
+      return multiSet;
+    }
+    if (focus[i] < small[i]) {
       multiSet.push(focus[i]);
-    } else if (focus[i] < small[i]) {
-      multiSet.push(focus[i]);
-    }else if (focus[i] > small[i]) {
+      console.log("second if", multiSet,i);
+    }if (focus[i] > small[i]) {
       multiSet.push(small[i]);
-    } else if (focus[i] == small[i]) {
+      console.log("third if", multiSet,i);
+    } if (focus[i] == small[i]) {
       multiSet.push(focus[i]);
       multiSet.push(small[i]);
+      console.log("fourth if", multiSet,i);
     }
     j = i;
     while (Math.abs(focus[j + 1] - focus[j])<= Math.abs(focus[j]-small[j])) {
@@ -143,8 +154,6 @@ function merge(array, array2) {
 
   let stop = 0;
   while (i < array.length && j < array2.length) {
-    console.log("here is stop", stop);
-    console.log("here is multiSet", multiSet);
     if (array[i] == array2[j]) {
       multiSet.push(array[i]);
       multiSet.push(array2[j]);
@@ -154,34 +163,25 @@ function merge(array, array2) {
     if (array[i] < array2[j]) {
       multiSet.push(array[i]);
       i++      
-    } else{
+    }if(j < array2.length){
       multiSet.push(array2[j]);
       j++;
       
     }
     stop++
     if (stop == 20) {
-      console.log("got infinite");
       break
     }
   }
-  console.log("i before while", i);
   while (i < array.length) {
     multiSet.push(array[i]);
     i++
     stop++
 
-    console.log("here", i)
-    console.log("array value", array[i]);
-    console.log("i while here is stop", stop);
-    console.log("here is multiSet", multiSet);
   }
   while (j < array2.length) {
-    multiSet.push(array[j++]);
+    multiSet.push(array2[j++]);
     stop++
-    console.log("array value", array[i]);
-    console.log(" j while here is stop", stop);
-    console.log("here is multiSet", multiSet);
   }
   return multiSet
 }
@@ -194,11 +194,17 @@ function mergeSort(array) {
   }
   let first = array.slice(0, Math.floor(array.length / 2));
   let second = array.slice(Math.floor(array.length / 2),array.length);
+  console.log("this is first", first);
+  console.log("this is first length", first.length);
+  console.log("this is second", second);
+  console.log("this is second length", second.length);
   let result1 = mergeSort(first);
   let result2 = mergeSort(second);
   console.log("this is result1", result1);
   console.log("this is result2", result2);
-  return merge2point0(result1, result2);
+  console.log("this is merged", merge(result1,result2));
+  
+  return merge(result1, result2);
 }
 
-console.log("this is the result of merge",mergeSort([]));
+console.log("this is the result of merge",mergeSort([2,36,5]))
