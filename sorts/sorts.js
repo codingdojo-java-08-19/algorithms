@@ -207,4 +207,4 @@ function mergeSort(array) {
   return merge(result1, result2);
 }
 
-console.log("this is the result of merge",mergeSort([2,36,5]))
+console.log("this is the result of merge",mergeSort([]))
