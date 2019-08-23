@@ -47,7 +47,7 @@
 //[1,2,2,5,5,7,7,9] *[9,10,22,31]
 //[9]
 function intersectSorted(array, array2) {
-  let intersection = [],
+  let intersection = [], 
     i = 0,
     j = 0,
     stop = 0;
@@ -75,4 +75,35 @@ function intersectSorted(array, array2) {
     //incriment iterators (i and j)
   return intersection;
 }
-  console.log("here is the result of merge", intersectSorted([1, 2, 2, 3, 4, 5], [1, 2, 2, 2,3, 3, 4, 6, 7, 9]));
+
+  
+//first=[1,2,2,4,5,] second =[2,5,6,7]
+//first = [2,5]
+function intersectInplace(first, second){
+  //keep of how many skipped
+  let i = 0,
+    j = 0,
+    skipped = 0;
+
+  while (i < first.length && j < second.length) {
+    if (second[j] < first[i]  ) {
+      j++;
+    } else {
+      if (second[j] == first[i]) {
+        //swap
+        first[i - skipped] = second[j++];
+      } else {
+        skipped++;
+      }
+      i++;
+    } 
+  }
+  first.length -= skipped;
+  console.log("here is first", first);
+  console.log("here is skipped", skipped);
+  
+  return first;
+}
+
+                                                          //[]
+console.log("here is the result of merge", intersectInplace([1, 2, 2, 3, 4, 5], [1, 2, 2, 2, 3, 3, 4, 6, 7, 9]));
