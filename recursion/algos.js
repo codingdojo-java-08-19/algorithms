@@ -70,14 +70,56 @@ function floodFill(canvas2D, startXY, newColor, oldColor = null) {
 
 
 }
-var canvas = [
-    [3, 2, 3, 4, 3],
-    [2, 3, 3, 4, 0],
-    [7, 3, 3, 5, 3],
-    [6, 5, 3, 4, 1],
-    [1, 2, 3, 3, 3],
-];
-startXY = [2, 2];
-newColor = 9;
 
-console.log(floodFill(canvas, startXY, newColor));
+var count = 0;
+
+
+function rFib(num) {
+    //n > 1 fn = fn-1 fn-2
+    // F0 = 0
+    // F1 = 1
+    // F2 = 1
+    // F3 = 2
+    // Fnum
+    count++;
+    if (num == 1) {
+        return 1;
+    }
+    else if (num <= 0) {
+        return 0;
+    }
+
+    return rFib(num - 1) + rFib(num - 2);
+}
+
+function rFib2(num, cache = {}) {
+    // Make it better
+
+    count++
+    if (num == 1) {
+        return 1;
+    }
+    if (num <= 0) {
+        return 0;
+    }
+    if (num in cache) {
+        return cache[num];
+    }
+    cache[num] = rFib2(num - 1, cache) + rFib2(num - 2, cache);
+    return cache[num];
+
+
+}
+
+// var canvas = [
+//     [3, 2, 3, 4, 3],
+//     [2, 3, 3, 4, 0],
+//     [7, 3, 3, 5, 3],
+//     [6, 5, 3, 4, 1],
+//     [1, 2, 3, 3, 3],
+// ];
+// startXY = [2, 2];
+// newColor = 9;
+
+console.log(rFib2(30));
+console.log(count);
