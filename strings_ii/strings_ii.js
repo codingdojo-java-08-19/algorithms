@@ -35,8 +35,14 @@ function reverseWordOrderBonus(string) {
     var punc = [",", "!", ".", "?", ";"];
     var arrFrag = [];
     for (var i = 0; i < string.length; i++) {
-        if (string[i] in punc) {
-            arrFrag.push(reverseWordOrder(sentenceFrag.join("")).push(string[i]));
+        //console.log("In for loop");
+        if (punc.includes(string[i])) {
+            console.log("In conditional!");
+            arrFrag.push((reverseWordOrder(sentenceFrag.join(""))));
+            arrFrag.push(string[i]);
+
+
+
             sentenceFrag = [];
         }
         else {
@@ -44,12 +50,36 @@ function reverseWordOrderBonus(string) {
         }
     }
     var j = arrFrag.length - 1;
-    for (var i = 0; i < Math.floor(arrFrag.length / 2); i++) {
-        var swap = arrFrag[i];
-        arrFrag[i] = arrFrag[j];
-        arrFrag[j] = swap;
-        j--;
+    var i = 0;
+    while (i < j) {
+        if (punc.includes(arrFrag[i]) && punc.includes(arrFrag[j])) {
+            i++;
+            j--;
+        }
+        else if (punc.includes(arrFrag[i])) {
+            i++;
+        }
+        else if (punc.includes(arrFrag[j])) {
+            j--;
+        }
+        else {
+            var swap = arrFrag[i];
+            arrFrag[i] = arrFrag[j];
+            arrFrag[j] = swap;
+            j--;
+            i++;
+        }
     }
+    var capArr = [];
+    for (var i = 0; i < string.length; i++) {
+        if (string[i] == string[i].toUpperCase()) {
+            capArr.push(true);
+        }
+        else {
+            capArr.push(false);
+        }
+    }
+
     return arrFrag.join("");
 }
 
