@@ -83,4 +83,32 @@ function reverseWordOrderBonus(string) {
     return arrFrag.join("");
 }
 
-console.log(reverseWordOrderBonus("Life is not a drill, go for it!"));
+//console.log(reverseWordOrderBonus("Life is not a drill, go for it!"));
+
+function censor(str, badWords) {
+    var strArr = wordArray(str);
+    var censoredWord = [];//when you don't declare with var, it makes the variable global!
+    for (var i = 0; i < strArr.length; i++) {
+        var currWord = strArr[i];
+        for (var j = 0; j < badWords.length; j++) {
+            var badWord = badWords[j];
+            if (currWord.includes(badWord)) {
+                var index = currWord.indexOf(badWord);//TO DO->edge case of multiple instances of the bad word
+                for (var k = 0; k < currWord.length; k++) {
+                    if (k >= index && k < index + badWord.length) {
+                        censoredWord.push("x");
+                    }
+                    else {
+                        censoredWord.push(currWord[k]);
+                    }
+                    console.log(censoredWord.join(""));
+                }
+                strArr[i] = censoredWord.join("");
+                censoredWord = [];
+            }
+        }
+    }
+    return strArr.join(" ");
+}
+
+console.log(censor("Hello Helllo goodbye.", ["Hell", "good"]));
