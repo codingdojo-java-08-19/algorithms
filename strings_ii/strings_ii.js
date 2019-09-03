@@ -14,6 +14,14 @@ function wordArray(string) {
     arr.push(substr);
     return arr;
 }
+function letterArray(string) {
+    var arr = [];
+    for (var i = 0; i < string.length; i++) {
+        arr.push(string[i]);
+    }
+    return arr;
+}
+
 
 function reverseWordOrder(string) {
 
@@ -111,4 +119,35 @@ function censor(str, badWords) {
     return strArr.join(" ");
 }
 
-console.log(censor("Hello Helllo goodbye.", ["Hell", "good"]));
+//console.log(censor("Hello Helllo goodbye.", ["Hell", "good"]));
+
+function rotateString(str, num) {
+    if (num % str.length == 0) {
+        return str;
+    }
+    num = num % str.length;
+    var remainder = str.length - num;
+    var newStrArr = [];
+    for (var i = remainder; i < str.length; i++) {
+        newStrArr.push(str[i]);
+    }
+    for (var i = 0; i < remainder; i++) {
+        newStrArr.push(str[i]);
+    }
+    return newStrArr.join("");
+
+
+}
+console.log(rotateString("Hello Helllo goodbye.", 5));
+
+function badChars(str, strOfBadChars) {
+    var newStrArr = [];
+    for (var i = 0; i < str.length; i++) {
+        if (strOfBadChars.includes(str[i])) {
+            continue;
+        }
+        newStrArr.push(str[i]);
+    }
+    return newStrArr.join("");
+}
+console.log(badChars("Hello Helllo goodbye.", "l"));
