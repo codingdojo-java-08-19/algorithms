@@ -134,7 +134,7 @@ function rotateString(str, num) {
     for (var i = 0; i < remainder; i++) {
         newStrArr.push(str[i]);
     }
-    return newStrArr.join("");
+    return newStrArr.join("");//can also use "+" concat for converting an array to a string
 
 
 }
@@ -143,11 +143,9 @@ console.log(rotateString("Hello Helllo goodbye.", 5));
 function badChars(str, strOfBadChars) {
     var newStrArr = [];
     for (var i = 0; i < str.length; i++) {
-        if (strOfBadChars.includes(str[i])) {
-            continue;
+        if (!strOfBadChars.includes(str[i])) {
+            newStrArr.push(str[i]);
         }
-        newStrArr.push(str[i]);
+        return newStrArr.join("");
     }
-    return newStrArr.join("");
-}
-console.log(badChars("Hello Helllo goodbye.", "l"));
+    console.log(badChars("Hello Helllo goodbye.", "l"));
